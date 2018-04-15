@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block body %}
+  {% if session.logged_in %}
+    <form action="{{ url_for('add_post') }}" method=post class=add-post>
+      <dl>
+        <dt>Title:
+        <dd><input type=text size=30 name=title>
+        <dt>Text:
+        <dd><textarea name=content rows=5 cols=40></textarea>
+        <dd><input type=submit value=Post>
+      </dl>
+    </form>
+  {% endif %}
+  <ul class=posts>
+  {% for post in posts|sort(attribute='published') %}  
+    <li> ,<h2 style="display: inline-block">{{ post.title }}  </h2>
+	{% if session.logged_in %}
+		<form action="{{ url_for('edit_post') }}" method="post">
+			<input name=id type=hidden value="{{post.Id}}" ></input>
+			<input style="float:right; margin-left:10px"; type=submit name=submit value=Delete >
+			<input style="float:right; margin-left:10px"; type=submit name=submit value=Edit >
+		</form>
+	{% endif %}
+		<span style="float: right;">Posted: {{post.PublishedDate}}</span><br/>
+	{{ post.content|safe }}	
+  {% else %}
+    <li><em>Unbelievable.  No posts here so far</em>
+  {% endfor %}
+  </ul>
+{% endblock %}

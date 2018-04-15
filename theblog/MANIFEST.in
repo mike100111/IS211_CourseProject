@@ -1,0 +1,3 @@
+graft theblog/templates
+graft theblog/static
+include theblog/schema.sql

@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block body %}
+  {% if session.logged_in %}
+    <form action="{{ url_for('update_post') }}" method=post class=add-post>
+      <dl>
+		<input name=id type=hidden value="{{post.Id}}" ></input>
+        <dt>Title:
+        <dd><input type=text size=30 name=title value={{ post.title|safe }}>
+        <dt>Text:
+        <dd><textarea name=content rows=5 cols=40>{{ post.content|safe }}</textarea>
+        <dd><input type=submit name=submit value=Update><input type=submit name=submit value=Cancel>
+      </dl>
+    </form>
+  {% endif %} 
+{% endblock %}
