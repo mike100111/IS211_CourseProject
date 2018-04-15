@@ -106,7 +106,7 @@ def edit_post():
 		flash('Post deleted')
 		return redirect(url_for('show_posts'))	
 	else:
-		cur = db.execute('select id, title, content, published from post where display = 1 and id = ? limit 1', request.form['id'])
+		cur = db.execute('select id, title, content, published from post where display = 1 and id = ? limit 1', [request.form['id'],])
 		post = cur.fetchall()
 		return render_template('edit_post.html', post=post[0])	
 	
